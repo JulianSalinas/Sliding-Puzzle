@@ -1,7 +1,7 @@
 package Pruebas
 import Clases.Matriz
 import Clases.Estado
-import Clases.TempHeuristics
+import Clases.Heuristica
 
 object Programa {
   
@@ -45,7 +45,7 @@ object Programa {
     println("\nMatMeta")
     println(matrizMeta)
     
-    val heuristicas = new TempHeuristics()
+    val heuristicas = new Heuristica()
     
     println("\n" + heuristicas.MisplacedTiles(matriz1, matrizMeta) )
     
