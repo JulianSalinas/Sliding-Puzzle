@@ -62,6 +62,11 @@ class Matriz( Secuencia: List[Int] ){
     return new Matriz(Aux)
   }
   
+  //Metodo: Compara esta matriz con una pasada por parametro 
+  def EqualsTo(Matriz : Matriz): Boolean = {
+    return Matriz.Elementos == this.Elementos
+  }
+  
   //Metodo : Para poder imprimir la matriz bonita
   override def toString() : String = {
     val str = for (l <- Elementos) yield l.mkString("{", ",", "}")

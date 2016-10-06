@@ -47,7 +47,14 @@ object Programa {
     
     val heuristicas = new Heuristica()
     
-    println("\n" + heuristicas.MisplacedTiles(matriz1, matrizMeta) )
+    println("\n" + heuristicas.MisplacedTiles(matriz1, matrizMeta))
+    
+    val matrizComparar1 = new Matriz(List(1,2,3,4,5,6,7,8,9))
+    val matrizComparar2 = new Matriz(List(1,2,3,4,5,6,7,8,9))
+    println(
+        "\nmatrizComparar1.EqualsTo(matrizComparar2)\n"+ 
+        matrizComparar1.EqualsTo(matrizComparar2)
+    )
     
   }
   
