@@ -1,18 +1,29 @@
 package Clases
-import Clases.Matriz
 
 class Estado( Padre: Estado, Secuencia : List[Int] ){
   
-  //Atributo : Matriz que representa un estado S
+  /** 
+   *  Atributo interno para representa un estado S en forma de una matriz
+   *  @param Secuacia que contiene los elementos ordenados para la matriz
+   */
   private val Matriz = new Matriz(Secuencia)
 
-  //Metodo: Devuelve el estado anterior
+  /** 
+   *  Atributo: Lista que contiene todos los posibles estados derivados
+   */
+  val SubEstados = GetSubEstados()
+  
+  /** 
+   *  Retorna el estado del cual se derivo este estado (Estaod padre o anterior)
+   */
   def GetEstadoAnterior() : Estado = {
     return Padre
   }
   
-  //Metodo: Obtiene todos los estados para los posibles movimientos
-  def GetSubEstados() : List[Estado] = {
+  /** 
+   *  Metodo para inicializar el atributo Subestados
+   */
+  private def GetSubEstados() : List[Estado] = {
     val Neutro = Matriz.GetPosicion(0)
     val Est_Der = GetEstado(Neutro._1,Neutro._2+1)
     val Est_Izq = GetEstado(Neutro._1,Neutro._2-1)
@@ -24,8 +35,13 @@ class Estado( Padre: Estado, Secuencia : List[Int] ){
     return Estados_No_Invalidos
   }
   
-  //Metodo: Obtiene un estado segun la posicion donde deberia estar un elemento
-  //Si la posicion del elemento no existe devuelve un estado nulo
+  /** 
+   *  Obtiene un posible estado, para ello los parametros se debe basar
+   *  en la coordenadas del elemento neutro.
+   *  Si la posicion del elemento no existe devuelve un estado nulo
+   *  @param Posicion X del elemento neutro
+   *  @param Posicion Y del elemento neutro
+   */
   private def GetEstado( PosX : Int, PosY : Int ) : Estado = {
     val Elemento = Matriz.GetElemento(PosX ,PosY)
     if(Elemento.!= (-1)){
@@ -34,20 +50,30 @@ class Estado( Padre: Estado, Secuencia : List[Int] ){
     return null
   }
   
-  //Metodo: Eliminas los estados nulos
+  /** 
+   *  Retorna una lista son elementos nulos resultante de otra lista que si los posee
+   *  @param Lista de elementos la cual contiene nulos
+   */
   private def EliminarNulos( Lista : List[Estado] ): List[Estado] = {
     if(Lista == Nil) Lista
     else if (Lista.head.!=(null)) List(Lista.head) ::: EliminarNulos(Lista.tail)
     else EliminarNulos(Lista.tail)
   }
   
-  //Metodo: Toma una lista de estados y elimina los que sean iguales al padre
+  /** 
+   *  Retorna un lista nueva la cual no posee como posible estado al padre
+   *  puesto que dicho elemento causaria un bucle
+   *  @param Lista que posee como uno de sus elementos al estado padre
+   */
   private def EliminarEstadosInvalidos(Lista : List[Estado] ): List[Estado] = {
     if(Lista == Nil) Lista
     else if(Lista.head.!=(Padre)) List(Lista.head) ::: EliminarEstadosInvalidos(Lista.tail)
     else EliminarEstadosInvalidos(Lista.tail)
   }
   
+  /** 
+   *  Por el momento imprime la matriz contenida, pero deberia imprimir una secuencia
+   */
   override def toString(): String = {
     return Matriz.toString()
   }
