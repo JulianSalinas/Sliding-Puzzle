@@ -23,7 +23,7 @@ object Programa {
     println("Estado raiz: \n" + estado_1)
     
     //Subestados de la raiz
-    val subEstados = estado_1.SubEstados
+    val subEstados = estado_1.GetSubEstados()
     for(i <- 0 to subEstados.length - 1)
       println("SubEstado "+ i + " de la raiz: \n"+ subEstados(i))
     
@@ -32,7 +32,7 @@ object Programa {
     println("Estado anterior al subEstado 0 de la raiz: \n" + estado_anterior)
     
     //SubEstados del subEstado 0 de la raiz
-    val subSubEstados = subEstados(0).SubEstados
+    val subSubEstados = subEstados(0).GetSubEstados()
     for(i <- 0 to subSubEstados.length - 1)
       println("SubEstado "+ i + " del subEstado 0: \n"+ subSubEstados(i))
     

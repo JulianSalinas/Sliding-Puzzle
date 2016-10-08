@@ -7,11 +7,6 @@ class Estado( Padre: Estado, Secuencia : List[Int] ){
    *  @param Secuacia que contiene los elementos ordenados para la matriz
    */
   private val Matriz = new Matriz(Secuencia)
-
-  /** 
-   *  Atributo: Lista que contiene todos los posibles estados derivados
-   */
-  val SubEstados = GetSubEstados()
   
   /** 
    *  Retorna el estado del cual se derivo este estado (Estaod padre o anterior)
@@ -23,7 +18,7 @@ class Estado( Padre: Estado, Secuencia : List[Int] ){
   /** 
    *  Metodo para inicializar el atributo Subestados
    */
-  private def GetSubEstados() : List[Estado] = {
+  def GetSubEstados() : List[Estado] = {
     val Neutro = Matriz.GetPosicion(0)
     val Est_Der = GetEstado(Neutro._1,Neutro._2+1)
     val Est_Izq = GetEstado(Neutro._1,Neutro._2-1)
