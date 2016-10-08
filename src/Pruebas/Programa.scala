@@ -2,6 +2,8 @@ package Pruebas
 import Clases.Matriz
 import Clases.Estado
 import Clases.Heuristica
+import Clases.solucion
+
 
 object Programa {
   
@@ -55,6 +57,21 @@ object Programa {
         "\nmatrizComparar1.EqualsTo(matrizComparar2)\n"+ 
         matrizComparar1.EqualsTo(matrizComparar2)
     )
+    /*
+     *  probar si una matriz tiene solucion
+     */
+    
+    //tiene solucion
+    val m1 = new Matriz(List(2,1,3,4,5,6,8,7,0))
+    //no tiene solucion
+    val m2 = new Matriz(List(2,1,3,4,5,6,7,8,0))
+    
+    val s=new solucion()
+    
+    println(s.tiene_solucion(m1))
+    
+    println(m1+"\ntiene solucion: "+s.tiene_solucion(m1))
+    println(m2+"\ntiene solucion: "+s.tiene_solucion(m2))
     
   }
   
