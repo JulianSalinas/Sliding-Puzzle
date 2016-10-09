@@ -2,12 +2,8 @@ package Pruebas
 import Clases.Matriz
 import Clases.Estado
 import Clases.Heuristica
-<<<<<<< HEAD
 import UI.MainWindow
-=======
 import Clases.solucion
-
->>>>>>> origin/master
 
 object Programa extends App{
     
@@ -19,8 +15,7 @@ object Programa extends App{
   println("SetElemento(0,0,50): \n" + matriz_1.SetElemento(0, 0, 50))
   println("CambiarPosiciones(0,6): \n" + matriz_1.CambiarPosiciones(0, 6))
   println("CambiarPosiciones((0,0),(0,1)): \n" + matriz_1.CambiarPosiciones((0,0),(0, 1)))
-  
-<<<<<<< HEAD
+
   //Pruebas de los estados
   
   //Estado raiz
@@ -44,7 +39,7 @@ object Programa extends App{
  
   val matriz1 = new Matriz(List(2,8,7,4,5,6,3,0,1))
   val matrizMeta = new Matriz(List(1,2,3,4,5,6,7,8,0))
-=======
+
   def main(args: Array[String]): Unit = {
     
     //Probando los metodos de la matriz
@@ -112,7 +107,6 @@ object Programa extends App{
     println(m2+"\ntiene solucion: "+s.tiene_solucion(m2))
     
   }
->>>>>>> origin/master
   
   println("\nMAT1")
   println(matriz1)
