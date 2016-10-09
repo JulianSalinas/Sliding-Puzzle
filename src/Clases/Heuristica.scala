@@ -7,7 +7,7 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def Manhattan( estadoPosible : Matriz , estadoMeta : Matriz ) : Int = {
+  def Manhattan( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Dimension
     var acumulado: Int = 0
@@ -28,7 +28,7 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def TilesOutOf( estadoPosible : Matriz , estadoMeta : Matriz ) : Int = {
+  def TilesOutOf( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Dimension
     var acumulado: Int = 0
@@ -50,7 +50,7 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def MisplacedTiles( estadoPosible : Matriz , estadoMeta : Matriz ) : Int = {
+  def MisplacedTiles( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Dimension
     var acumulado: Int = 0
