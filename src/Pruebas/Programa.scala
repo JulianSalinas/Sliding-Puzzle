@@ -6,6 +6,7 @@ import UI.MainWindow
 
 object Programa extends App{
     
+  //Probando los metodos de la matriz
   val matriz_1 = new Matriz(List(1,2,3,4,5,6,7,8,0))
   println("Matriz original: \n" + matriz_1)
   println("GetPosicion(6): " + matriz_1.GetPosicion(6))
@@ -53,7 +54,9 @@ object Programa extends App{
       "\nmatrizComparar1.EqualsTo(matrizComparar2)\n"+ 
       matrizComparar1.EqualsTo(matrizComparar2)
   )
+  
   //Probando la ventanita
-  val window = new MainWindow()
+
+  val window = MainWindow
   window.visible = true
 }
