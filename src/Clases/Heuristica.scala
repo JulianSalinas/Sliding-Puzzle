@@ -9,7 +9,7 @@ class Heuristica {
    */
   def Manhattan( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
-    var tamano: Int = estadoMeta.GetSecuencia().length
+    var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
     
     for ( count <- 0 to tamano-1) {
@@ -30,7 +30,7 @@ class Heuristica {
    */
   def TilesOutOf( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
-    var tamano: Int = estadoMeta.GetSecuencia().length
+    var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
     
     for ( count <- 0 to tamano-1) {
@@ -52,7 +52,7 @@ class Heuristica {
    */
   def MisplacedTiles( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
-    var tamano: Int = estadoMeta.GetSecuencia().length
+    var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
     
     // Peculiaridad de la heuristica -> el for empieza en 1
@@ -71,13 +71,13 @@ class Heuristica {
    *  @param estadoPosible estado inicial
    *  @param estadoMeta estado al que se quiere llegar
    */
-  def tieneSolucion( estadoPosible : Matriz, estadoMeta : Matriz ) : Boolean = {
+  def tieneSolucion( estadoPosible : Estado, estadoMeta : Estado ) : Boolean = {
     
     // algoritmo de esta heuristica
     // https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
 
-    var secuenciaMeta = estadoMeta.GetSecuencia()
-    var secuenciaPosible = estadoPosible.GetSecuencia()
+    var secuenciaMeta = estadoMeta.Secuencia
+    var secuenciaPosible = estadoPosible.Secuencia
     var inversiones = 0
     
     var tuplasMeta : List[(Int,Int)] = List() 
