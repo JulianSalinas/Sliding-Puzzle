@@ -32,7 +32,7 @@ class Solucion {
    * si el espacion en blanco esta debajo de la mitad y esta en una fila par
    */
    def espacio_blanco(estado : Estado): Boolean = {
-     return estado.GetPosicion(0)._1 < estado.Dimension/2 && IsPar(estado.GetPosicion(0)._1)
+     return !IsPar(estado.GetPosicion(0)._1)
    }
    
    /*
