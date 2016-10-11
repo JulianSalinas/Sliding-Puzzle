@@ -3,6 +3,7 @@ import Clases.Estado
 import Clases.Heuristica
 import Clases.Solucion
 import Clases.Repeticion_estados
+import Clases.ObtenerLista
 
 
 object Programa {
@@ -89,6 +90,11 @@ object Programa {
 	println(r_2.EstaElEstado(m00_2))
     println(r_2.EstaElEstado(Estado_meta_2))
     println(r_2.EstaElEstado(m13_2))
+    
+  val o = new ObtenerLista()
+    
+   println( o.String_to_list("1#2,3-4x5z6l7+0/9.10:11xxx12@13?14¡15=8"))
+   println(o.verificar())
     
   }
   
