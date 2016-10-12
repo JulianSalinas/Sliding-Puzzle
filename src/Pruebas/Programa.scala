@@ -3,13 +3,12 @@ import Clases.Estado
 import Clases.Heuristica
 import Clases.Solucion
 import Clases.Repeticion_estados
-import Clases.ObtenerLista
-
+import UI.MainWindow
 
 object Programa {
   
   def main(args: Array[String]): Unit = {
-    
+    /*
     //Probando los metodos de la matriz
     val matriz_1 = new Estado(List(1,2,3,4,5,6,7,8,0))
     println("Matriz original: \n" + matriz_1)
@@ -75,7 +74,7 @@ object Programa {
     println(m1+"\ntiene solucion: "+s.HasSolucion(m1))
     println(m2+"\ntiene solucion: "+s.HasSolucion(m2))
 	
-	val Estado_meta_2 = new Estado(List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0))
+	  val Estado_meta_2 = new Estado(List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0))
     val m00_2 = new Estado(List(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,1))
     val m03_2 = new Estado(List(1,2,3,0,5,6,7,8,9,10,11,12,13,14,15,4))
     val m13_2 = new Estado(List(1,2,3,4,5,6,7,0,9,10,11,12,13,14,15,8))
@@ -87,14 +86,12 @@ object Programa {
     r_2.insertar(m03_2)
     r_2.insertar(m13_2)
 	
-	println(r_2.EstaElEstado(m00_2))
+	  println(r_2.EstaElEstado(m00_2))
     println(r_2.EstaElEstado(Estado_meta_2))
-    println(r_2.EstaElEstado(m13_2))
+    println(r_2.EstaElEstado(m13_2))*/
     
-  val o = new ObtenerLista()
-    
-   println( o.String_to_list("1#2,3-4x5z6l7+0/9.10:11xxx12@13?14¡15=8"))
-   println(o.verificar())
+    MainWindow.setVisible(true)
+  
     
   }
   
