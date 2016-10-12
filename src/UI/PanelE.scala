@@ -32,7 +32,7 @@ object PanelE extends JPanel{
       val Estado = new Estado(Sec)
       new Tablero(Estado,this)
     }
-    else MainWindow.MostrarMensaje("Asegurese que los datos son correctos")
+    else Window.MostrarMensaje("Asegurese que los datos son correctos")
   }
   
   /**

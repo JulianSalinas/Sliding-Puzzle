@@ -3,7 +3,7 @@ import Clases.Estado
 import Clases.Heuristica
 import Clases.Solucion
 import Clases.Repeticion_estados
-import UI.MainWindow
+import UI.Window
 
 object Programa {
   

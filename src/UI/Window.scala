@@ -9,7 +9,7 @@ import org.netbeans.lib.awtextra._
 import java.awt.Color
 
 
-object MainWindow extends JFrame{
+object Window extends JFrame{
   
   /*****************************
    * Propiedades de la ventana *
