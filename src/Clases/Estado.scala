@@ -45,7 +45,9 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
    *  @param numero de columna
    */
   def GetElemento(Fila: Int, Columna: Int): Int = {
-    if(Dimension > Fila && Dimension > Columna) return Matriz(Fila)(Columna)
+    val Clausula_1 = Dimension > Fila && Dimension > Columna
+    val Clausula_2 = Fila >= 0 && Columna >= 0
+    if(Clausula_1 && Clausula_2) return Matriz(Fila)(Columna)
     else return -1
   }
   
