@@ -1,10 +1,15 @@
 package UI
 import Clases.Estado
+import scala.swing._
 import javax.swing._
+import javax.swing.UIManager.setLookAndFeel;
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+import org.netbeans.lib.awtextra._
 import java.awt.Color
 import java.awt.Font
 
-class Tablero (_Estado: Estado, _Panel: PanelE){
+class Tablero (_Estado: Estado, _Panel: JPanel){
   
   val Estado = _Estado
   val Panel = _Panel
@@ -38,7 +43,7 @@ class Ficha( _Estado: Estado,_Posicion:(Int,Int)){
   if(Comp.isInstanceOf[JButton]){
     var C = Comp.asInstanceOf[JButton]
     C.setHorizontalAlignment(SwingConstants.CENTER)
-    C.setFont(new Font("Jokerman", Font.PLAIN, 30))
+    C.setFont(new Font("Jokerman", Font.PLAIN, 25))
     C.setText(Estado.GetElemento(Fila, Columna).toString())
   }
   

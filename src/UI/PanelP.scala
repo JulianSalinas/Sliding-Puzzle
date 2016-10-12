@@ -14,47 +14,41 @@ object PanelP extends JPanel {
   setOpaque(true)
   setBackground(new Color(0,128,255,144))
   
+  /*****************************
+   * Funciones de la  ventana *
+   *****************************/
+  
   /**
    * Para obtener el estado inicial mediante un TextBox
    */
   val LEInicial = new JLabel("Estado inicial: "){setForeground(Color.WHITE)}
   val TBEInicial = new JTextField("1,2,3,4,5,6,7,8,0")
-  
   val BTNInicial = new JButton("Ingresar")
   BTNInicial.addActionListener(new ActionListener(){
-  def actionPerformed(e: ActionEvent){/**/}})
+  def actionPerformed(e: ActionEvent){PanelE.NuevoTablero(String2List(TBEInicial.getText()))}})
   
-  add(LEInicial, new AbsoluteConstraints(27,15,90,10))
-  add(TBEInicial, new AbsoluteConstraints(25,30,495,25))
-  add(BTNInicial, new AbsoluteConstraints(525,30,75,25))
   
   /**
    * Para poder añadir los estados meta
    */
   val LabEstMeta = new JLabel("Estados meta:"){setForeground(Color.WHITE)}
   val ListEstMeta = new JTable()//probar con JList
-  
   val BTNAddMeta = new JButton("Añadir estado meta")
   BTNInicial.addActionListener(new ActionListener(){
   def actionPerformed(e: ActionEvent){/*Funcion del boton aqui*/}})
   
-  add(LabEstMeta, new AbsoluteConstraints(27,65,110,10))
-  add(ListEstMeta, new AbsoluteConstraints(28,80,265,160))
-  add(BTNAddMeta, new AbsoluteConstraints(25,240,270,25))
+  
   
   /**
    * Para poder visualizar la solucion
    */
   val LabSolucion = new JLabel("Lista de pasos:"){setForeground(Color.WHITE)}
   val ListSolucion = new JTable()//probar con JList
-  
   val BTNResolver = new JButton("Solucionar")
   BTNInicial.addActionListener(new ActionListener(){
   def actionPerformed(e: ActionEvent){/*Funcion del boton aqui*/}})
   
-  add(LabSolucion, new AbsoluteConstraints(330,65,110,10))
-  add(ListSolucion, new AbsoluteConstraints(331,80,265,160))
-  add(BTNResolver, new AbsoluteConstraints(328,240,270,25))
+  
   
   /**
    * Toma un string y lo convierte a una lista de enteros
@@ -76,5 +70,19 @@ object PanelP extends JPanel {
       if( !Sec.contains(i)) {return false}
     return true
   }
+  
+  /*********************************
+   * Colocacion de los componentes *
+   *********************************/
+  
+  add(LEInicial, new AbsoluteConstraints(27,15,90,10))
+  add(TBEInicial, new AbsoluteConstraints(25,30,495,25))
+  add(BTNInicial, new AbsoluteConstraints(525,30,75,25))
+  add(LabEstMeta, new AbsoluteConstraints(27,65,110,10))
+  add(ListEstMeta, new AbsoluteConstraints(28,80,265,160))
+  add(BTNAddMeta, new AbsoluteConstraints(25,240,270,25))
+  add(LabSolucion, new AbsoluteConstraints(330,65,110,10))
+  add(ListSolucion, new AbsoluteConstraints(331,80,265,160))
+  add(BTNResolver, new AbsoluteConstraints(328,240,270,25))
   
 }

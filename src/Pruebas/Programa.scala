@@ -90,7 +90,7 @@ object Programa {
     println(r_2.EstaElEstado(Estado_meta_2))
     println(r_2.EstaElEstado(m13_2))*/
     
-    MainWindow.setVisible(true)
+    Window.setVisible(true)
   
     
   }
