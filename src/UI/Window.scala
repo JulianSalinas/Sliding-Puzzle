@@ -16,9 +16,9 @@ object Window extends JFrame{
    *****************************/
   
   val Ancho = 1005
-  val Alto = 600
+  val Alto = 550
   val Fondo = new JLabel()
-  val imagen = new ImageIcon(getClass().getResource("/UI/Fondo.jpg"))
+  val imagen = new ImageIcon(getClass().getResource("/UI/Wallpaper5.jpg"))
   Fondo.setIcon(imagen)
   Fondo.setSize(getSize())
 
@@ -34,19 +34,6 @@ object Window extends JFrame{
   /*****************************
    * Funciones de la  ventana *
    *****************************/
-  /**
-   * Text box donde se escoge el tamaño de la matriz 
-   * Esta a la par del BotonT
-   */
-  val TBDimension = new JSpinner(){this.setValue(9)}
-  
-  /**
-   * Boton cuya funcion es inicializar el tablero
-   * Esta arriba del PanelE
-   */
-  val BotonT = new JButton("Tablero por Default")
-  BotonT.addActionListener(new ActionListener(){
-  def actionPerformed(e: ActionEvent){PanelE.NuevoTableroDefault(TBDimension.getValue().asInstanceOf[Int])}})
   
   
   /**
@@ -63,10 +50,9 @@ object Window extends JFrame{
    * Colocacion de los componentes *
    *********************************/
   
-  getContentPane().add(PanelE, new AbsoluteConstraints(25,150,300,300))
-  getContentPane().add(PanelP, new AbsoluteConstraints(350,150,625,300))
-  getContentPane().add(BotonT, new AbsoluteConstraints(25,125,200,25))
-  getContentPane().add(TBDimension, new AbsoluteConstraints(225,125,100,25))
+  getContentPane().add(PanelE, new AbsoluteConstraints(25,50,300,300))
+  getContentPane().add(PanelP, new AbsoluteConstraints(350,50,625,300))
+  getContentPane().add(PanelA, new AbsoluteConstraints(25,375,950,100))
   getContentPane().add(Fondo, new AbsoluteConstraints(0, 0, -1, -1))
 
 }

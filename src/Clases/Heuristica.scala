@@ -7,12 +7,12 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def Manhattan( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
+  def MHT( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
     
-    for ( count <- 0 to tamano-1) {
+    for ( count <- 1 to tamano-1) {
       val posible = estadoPosible.GetPosicion(count)
       val meta = estadoMeta.GetPosicion(count)
       // Peculiaridad de la heuristica
@@ -28,12 +28,12 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def TilesOutOf( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
+  def TOF( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
     
-    for ( count <- 0 to tamano-1) {
+    for ( count <- 1 to tamano-1) {
       val posible = estadoPosible.GetPosicion(count)
       val meta = estadoMeta.GetPosicion(count)     
       // Peculiaridad de la heuristica
@@ -50,7 +50,7 @@ class Heuristica {
    *  @param estadoPosible matriz para el que calculamos la heuristica
    *  @param estadoMeta matriz con el estado al que se quiere llegar
    */
-  def MisplacedTiles( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
+  def MT( estadoPosible : Estado , estadoMeta : Estado ) : Int = {
     
     var tamano: Int = estadoMeta.Secuencia.length
     var acumulado: Int = 0
@@ -99,7 +99,6 @@ class Heuristica {
       }
     }
     
-    println("inversiones: " + inversiones)
     var ancho = estadoMeta.Dimension
     var anchoPar = ancho%2 == 0
     var inversionesPar = inversiones%2 == 0
@@ -111,14 +110,4 @@ class Heuristica {
     false
     
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }

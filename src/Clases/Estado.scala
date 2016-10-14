@@ -95,8 +95,10 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
   
   /** 
    *  Obtiene todos los posibles segun los movimientos validos
+   *  @param Existentes Lista con los estados vistos actualmente
+   *  @param estadoMeta Estado objetivo de solucion
    */
-  def GetSubEstados() : List[Estado] = {
+  def GetSubEstados(Existentes : List[Estado]) : List[Estado] = {
     val Neutro = GetPosicion(0)
     val Est_Der = GetSubEstado(Neutro._1,Neutro._2+1)
     val Est_Izq = GetSubEstado(Neutro._1,Neutro._2-1)
@@ -104,8 +106,8 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
     val Est_Aba = GetSubEstado(Neutro._1-1,Neutro._2)
     val Estados = List(Est_Der,Est_Izq,Est_Arr,Est_Aba)
     val Estados_No_Nulos = EliminarNulos(Estados)
-    val Estados_No_Invalidos = EliminarEstadosInvalidos(Estados_No_Nulos)
-    return Estados_No_Invalidos
+    val Estados_No_Existentes = EliminarEstadosInvalidos2(Estados_No_Nulos, Existentes)
+    return Estados_No_Existentes
   }
   
   /** 
@@ -142,6 +144,25 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
     else if(Lista.head.!=(Estado_Anterior)) List(Lista.head) ::: EliminarEstadosInvalidos(Lista.tail)
     else EliminarEstadosInvalidos(Lista.tail)
   }
+  
+  /**
+   * Retorna una lista la cual no posee como estados posibles, estados ya existentes en el arbol
+   * @param Lista Posee los estados posibles
+   * @param Existentes Lista con los estados existentes en arbol
+   */
+  private def EliminarEstadosInvalidos2(Lista : List[Estado], Existentes : List[Estado]): List[Estado] = {
+    if(Lista == Nil) Lista
+    else if( !Existentes.exists { x => Lista.head.EqualsTo(x) }) List(Lista.head) ::: EliminarEstadosInvalidos2(Lista.tail, Existentes)
+    else EliminarEstadosInvalidos2(Lista.tail, Existentes)
+  }
+  
+  val heu : Heuristica = new Heuristica()
+  
+  private def EliminarNoSolucionables(Lista : List[Estado], estadoMeta : Estado): List[Estado] = {
+    if(Lista == Nil) Lista
+    else if( heu.tieneSolucion(Lista.head, estadoMeta)) List(Lista.head) ::: EliminarNoSolucionables(Lista.tail, estadoMeta)
+    else EliminarNoSolucionables(Lista.tail, estadoMeta)
+  }
 
   /** 
    *  Retorna true si las matrices son iguales
@@ -155,8 +176,9 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
    *  Imprime la matriz de forma cuadrada
    */
   override def toString() : String = {
-    val str = for (l <- Matriz) yield l.mkString("{", ",", "}")
-    return str.mkString("\n")
+    /*val str = for (l <- Matriz) yield l.mkString("{", ",", "}")
+    return str.mkString("\n")*/
+    return Secuencia.mkString("{", ",", "}")
   }
   
 }
