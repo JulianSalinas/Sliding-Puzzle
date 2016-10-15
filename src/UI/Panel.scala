@@ -6,6 +6,7 @@ import java.awt.event.ActionListener
 import org.netbeans.lib.awtextra._
 import java.util.ArrayList;
 import java.awt.Color
+import java.awt.Font
 import sun.awt.DefaultMouseInfoPeer
 import Clases.Application
 import javax.swing.event.ListSelectionListener
@@ -61,21 +62,6 @@ object PanelP extends JPanel {
   def actionPerformed(e: ActionEvent){PanelM.Show}})
   
   /**
-   * Agrega un evento al Jlist de estados meta para que al momento
-   * de tocar un elemento lo reproduzca en la matriz de la UI
-   */
-  ListEstMeta.addListSelectionListener(new ListSelectionListener(){
-    def valueChanged(e: ListSelectionEvent){
-      /*Funcion al presionar un elementos de la lista de metas*/
-      val EstSeleccionado = ListEstMeta.getSelectedValue()
-      if (!e.getValueIsAdjusting() && EstSeleccionado.!=(null)){
-        PanelE.ColocarEstado(ListEstMeta.getSelectedValue())
-      }
-    }
-  })
-  
-  
-  /**
    * El boton toma el string del Combobox de heuristicas para 
    * asi llamar al object app y resolver el puzzle con dicha heuristica
    */
@@ -94,13 +80,17 @@ object PanelP extends JPanel {
    */
   ListSolucion.addListSelectionListener(new ListSelectionListener(){
     def valueChanged(e: ListSelectionEvent){
-      val EstSeleccionado = ListEstMeta.getSelectedValue()
-      if (!e.getValueIsAdjusting() && EstSeleccionado.!=(null)) {
-        PanelE.ColocarEstado(ListSolucion.getSelectedValue())
-      }
-    }
-  })
+      if (!e.getValueIsAdjusting()) PanelE.ColocarEstado(ListSolucion.getSelectedValue())}})
 
+  /**
+   * Agrega un evento al Jlist de estados meta para que al momento
+   * de tocar un elemento lo reproduzca en la matriz de la UI
+   */
+  ListEstMeta.addListSelectionListener(new ListSelectionListener(){
+    def valueChanged(e: ListSelectionEvent){
+      if (!e.getValueIsAdjusting()) PanelE.ColocarEstado(ListEstMeta.getSelectedValue())}
+  })
+  
   /**
    * Funcion llamada por el objecto App para colocar un Estado en el JList
    */
@@ -144,8 +134,8 @@ object PanelP extends JPanel {
 object PanelE extends JPanel{
   setOpaque(true)
   setBackground(new Color(0,0,0))
-  def ColocarEstado(_Estado:Estado) = {
-    new Tablero(_Estado,this)
+  def ColocarEstado(_Estado: Estado) = {
+    if(_Estado.!=(null)) new Tablero(_Estado,this)
   }
 }
 
@@ -159,8 +149,21 @@ object PanelA extends JPanel{
   setLayout(new AbsoluteLayout())
   setOpaque(true)
   setBackground(new Color(0,0,0,144))
-  val label = new JLabel("Información de la solución:\n"){setForeground(Color.WHITE)}
-  add(label, new AbsoluteConstraints(15,15,300,25))
+  val label1 = new JLabel("TECNOLÓGICO DE COSTA RICA"){
+    setForeground(Color.WHITE)
+    setFont(new Font("Jokerman", Font.PLAIN, 14))
+  }
+  val label2 = new JLabel("HECHO POR: "){
+    setForeground(Color.WHITE)
+    setFont(new Font("Jokerman", Font.PLAIN, 12))
+  }
+  val label3 = new JLabel("JULIAN SALINAS, BRANDON DINARTE, OLMAN CASTILLO"){
+    setForeground(Color.WHITE)
+    setFont(new Font("Jokerman", Font.PLAIN, 16))
+  }
+  add(label1, new AbsoluteConstraints(15,15,300,25))
+  add(label2, new AbsoluteConstraints(15,35,300,25))
+  add(label3, new AbsoluteConstraints(15,55,500,25))
 }
 
 /**

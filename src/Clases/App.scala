@@ -12,7 +12,7 @@ object Application extends App{
    */
    Window.setVisible(true)
    var EstadosM:List[Estado] = List()
-   var EstadoS:Estado = new Estado(List(1,2,3,4,5,6,7,8,0))
+   var EstadoS:Estado = new Estado(List(2,1,3,4,5,6,7,8,0))
    
    
    /**
@@ -25,11 +25,10 @@ object Application extends App{
        val Heuristica = new Heuristica()
        val Pasos = SolucionarAux(StrHeuristica)
        PanelP.IngresarSolucion(Pasos)
-       Window.MostrarMensaje("Solución encontrada!\nHas click sobre cada paso para visualizarlo")
-     } catch{
-       case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error") }
-       case e: NullPointerException => {Window.MostrarMensaje("")}
-     }
+       Window.MostrarMensaje(
+           "Solución encontrada en "+Pasos.length.toString()+
+           " pasos!\nHas click sobre cada paso para visualizarlo")
+     } catch{case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error") }}
    }
    
    /**
