@@ -30,25 +30,13 @@ object Window extends JFrame{
   
   try{setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel")}
   catch{case e: Exception => { MostrarMensaje(e.getMessage) }}
+
   
-  /*****************************
-   * Funciones de la  ventana *
-   *****************************/
-  
-  
-  /**
-   * Sirve para que el controlador pueda enviar menseajes al usuario
-   * @param Mensaje Mensaje ue se quiere enviar al usuario
-   */
   def MostrarMensaje( Mensaje:String ) = {
     JOptionPane.showMessageDialog(
         null, Mensaje, "Mensaje", 
         JOptionPane.INFORMATION_MESSAGE)
   }
-
-  /*********************************
-   * Colocacion de los componentes *
-   *********************************/
   
   getContentPane().add(PanelE, new AbsoluteConstraints(25,50,300,300))
   getContentPane().add(PanelP, new AbsoluteConstraints(350,50,625,300))

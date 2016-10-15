@@ -11,51 +11,93 @@ object Application extends App{
    * MAIN
    */
    Window.setVisible(true)
-
+   var EstadosM:List[Estado] = List()
+   var EstadoS:Estado = new Estado(List(1,2,3,4,5,6,7,8,0))
+   
    
    /**
-    * La UI llama a este metodo al querer setear el estado a solucionar
+    * La UI llama a este metodo indicando por medio de un string la
+    * heuristica que se desea usar para solucionar el EstadoS que contiene App
     */
-   def IngresarEstadoSolucionar(StrSecuencia:String): Unit = {
+   def Solucionar(StrHeuristica:String): Unit = {
      try{
-       val Sec = String2List(StrSecuencia)
-       if(IsSecuenciaValida(Sec)){
-         val Est = new Estado(Sec)
-         PanelE.ColocarEstado(Est)
-       }
-       else throw new Exception("Secuencia inválida")
+       Window.MostrarMensaje("Resolviendo con " + StrHeuristica)
+       val Heuristica = new Heuristica()
+       val Pasos = SolucionarAux(StrHeuristica)
+       PanelP.IngresarSolucion(Pasos)
+       Window.MostrarMensaje("Solución encontrada!\nHas click sobre cada paso para visualizarlo")
+     } catch{
+       case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error") }
+       case e: NullPointerException => {Window.MostrarMensaje("")}
      }
-     catch{case e: Exception => { Window.MostrarMensaje(e.getMessage) }}
    }
-    
+   
    /**
-    * Se agregar un estado meta usando la UI
+    * Obtiene los pasos de la solucion dado el nombre de una heuristica,
+    * la heuristica escogida es pasada por parametro al solucionador.
+    * Usada unicamente por la funcion Solucionar
+    */
+   private def SolucionarAux(StrHeu:String): List[Estado] = {
+     val Sol = new Solucionador()
+     val H = new Heuristica()
+     if(StrHeu.==("Manhattan")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MHT)
+     else if (StrHeu.==("TilesOutOf")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MT)
+     else if (StrHeu.==("MisplacedTiles")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MT)
+     else throw new Exception("Heurística todavía sin implementar")
+   }
+   
+   /**
+    * La UI hace la solicitud de agregar un estado meta si la secuencia de dicho
+    * estado es valida y del mismo tamaño que el estado a solucionar
     */
    def IngresarEstadoMeta(StrSecuencia:String): Unit = {
      try{
        val Sec = String2List(StrSecuencia)
-       if(IsSecuenciaValida(Sec)){
-         //Falta validar que es el mismo tamaño que la que se va a solucionar
-         val Est = new Estado(Sec)
-         PanelP.AddEstadoMeta(Est)
-       }
-       else throw new Exception("Secuencia inválida")
-     }
-     catch{case e: Exception => { Window.MostrarMensaje(e.getMessage) }}
-     
+       val Est = new Estado(Sec)
+       //Si alguna de estas 3 levanta un error entonces no se coloca el estado meta
+         VerificarLargosIguales(Sec)
+         VerificarValidezSecuencia(Sec)
+         VerificarExistenciaSolucion(Sec)
+       EstadosM = EstadosM:::List(Est)
+       PanelP.AddEstadoMeta(Est)
+       Window.MostrarMensaje("Estado meta cargado correctamente")
+     } catch{case e: Exception => { Window.MostrarMensaje(e.getMessage) }} 
+   }
+   
+   //Valida que la secuancia cumpla con todos los requisitos respecto al tamaño y elementos posibles
+   private def VerificarValidezSecuencia(Sec:List[Int]) = {
+     if(!IsSecuenciaValida(Sec))
+     throw new Exception("Secuencia inválida")
+   }
+   
+   //Se verifica que el estado meta tenga inversa respecto al estado a solucionar
+   private def VerificarExistenciaSolucion(Sec:List[Int]) = {
+     val Est = new Estado(Sec)
+     val Heu = new Heuristica()
+     if(!Heu.tieneSolucion(EstadoS,Est))
+     throw new Exception("Un estado meta tiene que ser válido\nIntente intercambiar un par de valores de la secuencia")
+   }
+   
+   //Respecto a la secuencia del estado a solucionar
+   private def VerificarLargosIguales(Sec:List[Int]) = {
+     if(EstadoS.Secuencia.length != Sec.length)
+     throw new Exception("Un estado meta debe ser del mismo tamaño que el estado a resolver")
    }
    
    /**
-   * Crea una lista de numeros consecutivos pero dejando de ultimo el 0
-   * @param Inicio Numero con el que se inicia la secuancia
-   * @param Fin Ultimo numero antes del 0
-   */
-  private def IniciarSecuenciaDefault(Inicio: Int, Fin:Int) : List[Int] = {
-    if(Inicio > Fin) List(0) else{
-      var Inicio_2 = Inicio + 1
-      List(Inicio):::IniciarSecuenciaDefault(Inicio_2,Fin)
-    }
-  } 
+    * Es llamado por la interfaz para poder cambiar el estado
+    * que se desea solucionar
+    * @param String obtenido del TextBox junto al boton Agregar
+    */
+   def SetEstadoSolucionar(StrSecuencia:String) = {
+     val Sec = String2List(StrSecuencia)
+     if(IsSecuenciaValida(Sec)){
+       EstadosM = List()
+       EstadoS = new Estado(Sec)
+       PanelE.ColocarEstado(EstadoS)
+       Window.MostrarMensaje("Estado a solucionar cambiado a:\n " + EstadoS)
+     } else throw new Exception("Secuencia inválida")
+   }
    
    /**
    * Verifica que se pueda generar la matrix NxN

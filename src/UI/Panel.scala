@@ -13,14 +13,10 @@ import javax.swing.event.ListSelectionEvent
 
 
 object PanelP extends JPanel {
-
+  
   setLayout(new AbsoluteLayout())
   setOpaque(true)
   setBackground(new Color(0,0,0,144))
-  
-  /*****************************
-   * Funciones de la  ventana *
-   *****************************/
   
   /**
    * Para poder seleccionar la heuristica
@@ -34,19 +30,26 @@ object PanelP extends JPanel {
   
   /**
    * Para obtener el estado inicial mediante un TextBox
+   * Primero se debe vaciar la lista de metas y pasos al momento
+   * de colocar un nuevo estado a solucionar
    */
   val LEInicial = new JLabel("Estado inicial: "){setForeground(Color.WHITE)}
-  val TBEInicial = new JTextField("1,2,3,4,5,6,7,8,0")
+  val TBEInicial = new JTextField("0 8 1 2 7 6 5 4 3")
   val BTNInicial = new JButton("Ingresar")
   BTNInicial.addActionListener(new ActionListener(){
     def actionPerformed(e: ActionEvent){
-      /*Funcion del boton aqui*/
-      Application.IngresarEstadoSolucionar(TBEInicial.getText())
+      ListEstMeta.setModel(new DefaultListModel[Estado])
+      ListSolucion.setModel(new DefaultListModel[Estado])
+      ListEstMeta.repaint()
+      ListSolucion.repaint()
+      Application.SetEstadoSolucionar(TBEInicial.getText())
     }})
   
   
   /**
-   * Para poder añadir los estados meta
+   * Abre un jdialog para poder añadir estados meta
+   * dentro de una lista en la clase App
+   * Esta lista esta dentro del controlador.
    */
   val LabEstMeta = new JLabel("Estados meta:"){setForeground(Color.WHITE)}
   val ListEstMeta:JList[Estado] = new JList[Estado]
@@ -55,21 +58,26 @@ object PanelP extends JPanel {
   ListEstMeta.setModel(new DefaultListModel[Estado])
   val BTNAddMeta = new JButton("Añadir estado meta")
   BTNAddMeta.addActionListener(new ActionListener(){
-    def actionPerformed(e: ActionEvent){
-      /*Funcion del boton aqui*/
-      PanelM.Show
-    }}) 
+  def actionPerformed(e: ActionEvent){PanelM.Show}})
+  
+  /**
+   * Agrega un evento al Jlist de estados meta para que al momento
+   * de tocar un elemento lo reproduzca en la matriz de la UI
+   */
   ListEstMeta.addListSelectionListener(new ListSelectionListener(){
     def valueChanged(e: ListSelectionEvent){
       /*Funcion al presionar un elementos de la lista de metas*/
-      if (!e.getValueIsAdjusting())
+      val EstSeleccionado = ListEstMeta.getSelectedValue()
+      if (!e.getValueIsAdjusting() && EstSeleccionado.!=(null)){
         PanelE.ColocarEstado(ListEstMeta.getSelectedValue())
+      }
     }
   })
   
   
   /**
-   * Para poder visualizar la solucion
+   * El boton toma el string del Combobox de heuristicas para 
+   * asi llamar al object app y resolver el puzzle con dicha heuristica
    */
   val LabSolucion = new JLabel("Lista de pasos:"){setForeground(Color.WHITE)}
   var ListSolucion:JList[Estado] = new JList[Estado]
@@ -78,35 +86,42 @@ object PanelP extends JPanel {
   ListSolucion.setModel(new DefaultListModel[Estado])
   val BTNResolver = new JButton("Solucionar")
   BTNResolver.addActionListener(new ActionListener(){
-    def actionPerformed(e: ActionEvent){
-      /*Funcion del boton aqui*/
-    }})
+  def actionPerformed(e: ActionEvent){Application.Solucionar(CBHeuristica.getSelectedItem().toString())}})
+  
+  /**
+   * Agrega un evento al Jlist de pasos (o solucion) para que al momento
+   * de tocar un elemento lo reproduzca en la matriz de la UI
+   */
   ListSolucion.addListSelectionListener(new ListSelectionListener(){
     def valueChanged(e: ListSelectionEvent){
-      /*Funcion al presionar un elementos de la lista de soluciones*/
-      if (!e.getValueIsAdjusting())
+      val EstSeleccionado = ListEstMeta.getSelectedValue()
+      if (!e.getValueIsAdjusting() && EstSeleccionado.!=(null)) {
         PanelE.ColocarEstado(ListSolucion.getSelectedValue())
+      }
     }
   })
-  
-  def RemoveAll() = {  
-    ListSolucion.removeAll()
-    ListEstMeta.removeAll()
-  }
-  
+
+  /**
+   * Funcion llamada por el objecto App para colocar un Estado en el JList
+   */
   def AddEstadoMeta(EstadoM:Estado) = {
     (ListEstMeta.getModel()).asInstanceOf[DefaultListModel[Estado]].addElement(EstadoM);
   }
   
-  def AddEstados(Estados:List[Estado]) = {
+  /**
+   * Funcion llamada por el objecto App para colocar los estados que 
+   * conforman la solucion en un JList
+   */
+  def IngresarSolucion(Estados:List[Estado]) = {
+    ListSolucion.setModel(new DefaultListModel[Estado])
     ListSolucion.removeAll()
     Estados.foreach { _Estado => 
     (ListSolucion.getModel()).asInstanceOf[DefaultListModel[Estado]].addElement(_Estado)}
   }
   
-  /*********************************
-   * Colocacion de los componentes *
-   *********************************/
+  /**
+   * Colocacion de cada unos de los componentes declarados
+   */
   
   add(LEInicial, new AbsoluteConstraints(27,22,90,10))
   add(TBEInicial, new AbsoluteConstraints(25,37,495,25))
@@ -121,6 +136,11 @@ object PanelP extends JPanel {
   
 }
 
+
+/**
+ * Panel donde se visualizan los estados seleccionados
+ * en la interfaz grafica 
+ */
 object PanelE extends JPanel{
   setOpaque(true)
   setBackground(new Color(0,0,0))
@@ -129,6 +149,12 @@ object PanelE extends JPanel{
   }
 }
 
+
+/**
+ * Panel donde se muestran los detalles de la solucion este panel 
+ * es pasado como parametro a una clase Tablero presente en el 
+ * archivo Componente para que pinte la matriz correspondiente
+ */
 object PanelA extends JPanel{
   setLayout(new AbsoluteLayout())
   setOpaque(true)
@@ -137,6 +163,10 @@ object PanelA extends JPanel{
   add(label, new AbsoluteConstraints(15,15,300,25))
 }
 
+/**
+ * JDialog que pregunta al usuario la secuencia que desea
+ * añadir como estado meta
+ */
 
 object PanelM {
 
@@ -166,7 +196,6 @@ object PanelM {
   def actionPerformed(e: ActionEvent){
     jdialog.setVisible(false)
     Application.IngresarEstadoMeta(tbSecuencia.getText())
-    ///Application.IngresarEstadoSolucionar(tbSecuencia.getText())
   }})
         
 }

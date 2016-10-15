@@ -9,6 +9,12 @@ import org.netbeans.lib.awtextra._
 import java.awt.Color
 import java.awt.Font
 
+
+/**
+ * Un tablero es la representacion visual de un estado, 
+ * para poder verlo se debe colocar en un panel para
+ * que pueda ajustar cada elemento al tamaño de este
+ */
 class Tablero (_Estado: Estado, _Panel: JPanel){
   
   val Estado = _Estado
@@ -17,18 +23,21 @@ class Tablero (_Estado: Estado, _Panel: JPanel){
   val TFicha = Panel.getSize().width/Dimension;
   
   Panel.removeAll()
-  
   for(i <- 0 to Estado.Dimension - 1)
     for(j <- 0 to Estado.Dimension - 1){
       var Ficha = new Ficha(Estado,(i,j))
       Panel.add(Ficha.Comp)
       Ficha.Comp.setBounds((TFicha*j),(TFicha*i), TFicha, TFicha)
     } 
-  
   Panel.repaint()
   
 }
 
+/**
+ * Es la unidad basica del tablero, cada ficha es representada
+ * por un boton sin funcionalidad, excepto la ficha que representa
+ * al numero 0 el cual es un label transparente y sin numero visible
+ */
 class Ficha( _Estado: Estado,_Posicion:(Int,Int)){
   
   val Fila = _Posicion._1
