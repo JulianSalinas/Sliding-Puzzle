@@ -5,7 +5,6 @@ import javax.swing._
 import javax.swing.UIManager.setLookAndFeel;
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import org.netbeans.lib.awtextra._
 import java.awt.Color
 
 
@@ -26,7 +25,7 @@ object Window extends JFrame{
   setSize(Ancho,Alto)
   setResizable(false);
   setLocationRelativeTo(null)
-  getContentPane().setLayout(new AbsoluteLayout())
+  getContentPane().setLayout(null)
   
   try{setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel")}
   catch{case e: Exception => { MostrarMensaje(e.getMessage) }}
@@ -38,9 +37,13 @@ object Window extends JFrame{
         JOptionPane.INFORMATION_MESSAGE)
   }
   
-  getContentPane().add(PanelE, new AbsoluteConstraints(25,50,300,300))
-  getContentPane().add(PanelP, new AbsoluteConstraints(350,50,625,300))
-  getContentPane().add(PanelA, new AbsoluteConstraints(25,375,950,100))
-  getContentPane().add(Fondo, new AbsoluteConstraints(0, 0, -1, -1))
+  PanelE.setBounds(25,50,300,300)
+  PanelP.setBounds(350,50,625,300)
+  PanelA.setBounds(25,375,950,100)
+  Fondo.setBounds(0, 0, Ancho, Alto)
+  getContentPane().add(PanelE)
+  getContentPane().add(PanelP)
+  getContentPane().add(PanelA)
+  getContentPane().add(Fondo)
 
 }

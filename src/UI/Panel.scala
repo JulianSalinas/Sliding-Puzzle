@@ -3,7 +3,6 @@ import Clases.Estado
 import javax.swing._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import org.netbeans.lib.awtextra._
 import java.util.ArrayList;
 import java.awt.Color
 import java.awt.Font
@@ -15,7 +14,7 @@ import javax.swing.event.ListSelectionEvent
 
 object PanelP extends JPanel {
   
-  setLayout(new AbsoluteLayout())
+  setLayout(null)
   setOpaque(true)
   setBackground(new Color(0,0,0,144))
   
@@ -113,16 +112,27 @@ object PanelP extends JPanel {
    * Colocacion de cada unos de los componentes declarados
    */
   
-  add(LEInicial, new AbsoluteConstraints(27,22,90,10))
-  add(TBEInicial, new AbsoluteConstraints(25,37,495,25))
-  add(BTNInicial, new AbsoluteConstraints(525,37,75,25))
-  add(LabEstMeta, new AbsoluteConstraints(27,78,110,10))
-  add(SMPanel, new AbsoluteConstraints(28,96,265,160))
-  add(BTNAddMeta, new AbsoluteConstraints(25,256,270,25))
-  add(LabSolucion, new AbsoluteConstraints(330,78,110,10))
-  add(SPanel, new AbsoluteConstraints(331,96,265,160))
-  add(BTNResolver, new AbsoluteConstraints(328,256,135,25))
-  add(CBHeuristica, new AbsoluteConstraints(464,256,135,25))
+  LEInicial.setBounds(27,22,90,10)
+  TBEInicial.setBounds(25,37,495,25)
+  BTNInicial.setBounds(525,37,75,25)
+  LabEstMeta.setBounds(27,78,110,10)
+  SMPanel.setBounds(28,96,265,160)
+  BTNAddMeta.setBounds(25,256,270,25)
+  LabSolucion.setBounds(330,78,110,10)
+  SPanel.setBounds(331,96,265,160)
+  BTNResolver.setBounds(328,256,135,25)
+  CBHeuristica.setBounds(464,256,135,25)
+  
+  add(LEInicial)
+  add(TBEInicial)
+  add(BTNInicial)
+  add(LabEstMeta)
+  add(SMPanel)
+  add(BTNAddMeta)
+  add(LabSolucion)
+  add(SPanel)
+  add(BTNResolver)
+  add(CBHeuristica)
   
 }
 
@@ -146,7 +156,7 @@ object PanelE extends JPanel{
  * archivo Componente para que pinte la matriz correspondiente
  */
 object PanelA extends JPanel{
-  setLayout(new AbsoluteLayout())
+  setLayout(null)
   setOpaque(true)
   setBackground(new Color(0,0,0,144))
   val label1 = new JLabel("TECNOLÓGICO DE COSTA RICA"){
@@ -161,9 +171,12 @@ object PanelA extends JPanel{
     setForeground(Color.WHITE)
     setFont(new Font("Jokerman", Font.PLAIN, 16))
   }
-  add(label1, new AbsoluteConstraints(15,15,300,25))
-  add(label2, new AbsoluteConstraints(15,35,300,25))
-  add(label3, new AbsoluteConstraints(15,55,500,25))
+  label1.setBounds(15,15,300,25)
+  label2.setBounds(15,35,300,25)
+  label3.setBounds(15,55,500,25)
+  add(label1)
+  add(label2)
+  add(label3)
 }
 
 /**
@@ -178,20 +191,24 @@ object PanelM {
   private val tbSecuencia = new JTextField("1,2,3,4,5,6,7,8,0")
   
   private val jdialog = new JDialog(Window)
-  jdialog.setLayout(new AbsoluteLayout())
+  jdialog.setLayout(null)
   jdialog.setTitle("Ingrese un estado meta")
   jdialog.setSize(625,100)
   jdialog.setResizable(false);
   jdialog.setLocationRelativeTo(null)
   
   private val jpanel = new JPanel()
-  jpanel.setLayout(new AbsoluteLayout())
+  jpanel.setLayout(null)
   jpanel.setOpaque(true)
   jpanel.setBackground(new Color(0,0,0,144))
-  jpanel.add(jlabel, new AbsoluteConstraints(27,15,300,10))
-  jpanel.add(tbSecuencia,new AbsoluteConstraints(25,30,495,25))
-  jpanel.add(jbutton,new AbsoluteConstraints(525,30,75,25))
-  jdialog.add(jpanel, new AbsoluteConstraints(0,0,625,100))
+  jlabel.setBounds(27,15,300,10)
+  tbSecuencia.setBounds(25,30,495,25)
+  jbutton.setBounds(525,30,75,25)
+  jpanel.setBounds(0,0,625,100)
+  jpanel.add(jlabel)
+  jpanel.add(tbSecuencia)
+  jpanel.add(jbutton)
+  jdialog.add(jpanel)
   
   def Show = { jdialog.setVisible(true) }
   

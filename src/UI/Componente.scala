@@ -5,7 +5,6 @@ import javax.swing._
 import javax.swing.UIManager.setLookAndFeel;
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import org.netbeans.lib.awtextra._
 import java.awt.Color
 import java.awt.Font
 
