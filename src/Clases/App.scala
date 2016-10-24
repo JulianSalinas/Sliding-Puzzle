@@ -25,15 +25,20 @@ object Application extends App{
     */
    def Solucionar(StrHeuristica:String): Unit = {
      try{
+       val TimeStart = System.currentTimeMillis()
        VerificarMatrizNula()
        VerificarExistenciaMeta()
        Window.MostrarMensaje("Resolviendo con " + StrHeuristica)
        val Heuristica = new Heuristica()
        val Pasos = SolucionarAux(StrHeuristica)
        PanelP.IngresarSolucion(Pasos)
+       val TimeEnd = System.currentTimeMillis()
+       val TotalTime = TimeEnd - TimeStart
+       println(TotalTime)
        Window.MostrarMensaje(
-           "Solución encontrada en "+Pasos.length.toString()+
-           " pasos!\nHas click sobre cada paso para visualizarlo")
+           "Solución encontrada en " + Pasos.length.toString() + " pasos!\n" + 
+           "Tiempo de ejecución: " + TotalTime + " milisegundos\n" +
+           "Has click sobre cada paso para visualizarlo")
      } catch{case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error:\n" + e.getMessage()) }}
    }
    

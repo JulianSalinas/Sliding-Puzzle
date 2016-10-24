@@ -28,12 +28,10 @@ class Solucionador {
     var EstadoActual = EstadoInicial
     
     while (!EstadoActual.EqualsTo(EstadoMeta)) {
-      var PesoActual = Heuristica(EstadoActual,EstadoMeta)
       var Subestados = EstadoActual.GetSubEstados(Visitados)
-      //.filter { X => Heuristica(X, EstadoMeta) < PesoActual }
-      if (!Subestados.isEmpty) EstadoActual = Subestados.reduceLeft((E1,E2) => 
-      if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)
-      else EstadoActual = EstadoActual.Estado_Anterior
+      if (!Subestados.isEmpty) {EstadoActual = Subestados.reduceLeft((E1,E2) => 
+      if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)}
+      else {EstadoActual = EstadoActual.Estado_Anterior}
       Visitados = Visitados ::: List(EstadoActual)  
     }  
     return EstadoActual
@@ -44,9 +42,15 @@ class Solucionador {
    * la solucion. Con esta se puede obtener la secuencia solucion a partir 
    * de obtener los padres del estado.
    */
-  private def RecrearSolucion( Estado: Estado ) : List[Estado] = {
-    if(Estado.Estado_Anterior.==(null)) List(Estado)
-    else RecrearSolucion(Estado.Estado_Anterior):::List(Estado)
+  private def RecrearSolucion(Estado: Estado ) : List[Estado] = {
+    var Sol:List[Estado] = List()
+    var EstadoActual = Estado
+    do{
+      Sol = List(EstadoActual) ::: Sol
+      EstadoActual = EstadoActual.Estado_Anterior
+    } 
+    while (EstadoActual != null)
+    return Sol
   }
   
 }
