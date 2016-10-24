@@ -28,11 +28,11 @@ class Solucionador {
     var EstadoActual = EstadoInicial
     
     while (!EstadoActual.EqualsTo(EstadoMeta)) {
+      Visitados = Visitados ::: List(EstadoActual)  
       var Subestados = EstadoActual.GetSubEstados(Visitados)
       if (!Subestados.isEmpty) {EstadoActual = Subestados.reduceLeft((E1,E2) => 
       if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)}
       else {EstadoActual = EstadoActual.Estado_Anterior}
-      Visitados = Visitados ::: List(EstadoActual)  
     }  
     return EstadoActual
   }
