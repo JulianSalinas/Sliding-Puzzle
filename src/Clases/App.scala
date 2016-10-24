@@ -6,14 +6,18 @@ import UI.PanelE
 
 object Application extends App{
   
-  
   /**
    * MAIN
    */
    Window.setVisible(true)
    var EstadosM:List[Estado] = List()
-   var EstadoS:Estado = new Estado(List(2,1,3,4,5,6,7,8,0))
+   var EstadoS:Estado = null
    
+   var MensajeInicial = "1. Ingresa una secuencia,\n"
+   MensajeInicial += "2. Ingresa los posibles estados meta\n"
+   MensajeInicial += "3. Selecciona la heurística a utilizar y presiona solucionar\n"
+   MensajeInicial += "Nota: Puedes usar cualquier separador para ingresar las secuencias"
+   Window.MostrarMensaje(MensajeInicial)
    
    /**
     * La UI llama a este metodo indicando por medio de un string la
@@ -21,6 +25,8 @@ object Application extends App{
     */
    def Solucionar(StrHeuristica:String): Unit = {
      try{
+       VerificarMatrizNula()
+       VerificarExistenciaMeta()
        Window.MostrarMensaje("Resolviendo con " + StrHeuristica)
        val Heuristica = new Heuristica()
        val Pasos = SolucionarAux(StrHeuristica)
@@ -28,7 +34,7 @@ object Application extends App{
        Window.MostrarMensaje(
            "Solución encontrada en "+Pasos.length.toString()+
            " pasos!\nHas click sobre cada paso para visualizarlo")
-     } catch{case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error") }}
+     } catch{case e: Exception => { Window.MostrarMensaje("Ha ocurrido un error:\n" + e.getMessage()) }}
    }
    
    /**
@@ -40,7 +46,7 @@ object Application extends App{
      val Sol = new Solucionador()
      val H = new Heuristica()
      if(StrHeu.==("Manhattan")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MHT)
-     else if (StrHeu.==("TilesOutOf")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MT)
+     else if (StrHeu.==("TilesOutOf")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.TOF)
      else if (StrHeu.==("MisplacedTiles")) Sol.ObtenerSolucion(EstadoS, EstadosM, H.MT)
      else throw new Exception("Heurística todavía sin implementar")
    }
@@ -69,6 +75,18 @@ object Application extends App{
      throw new Exception("Secuencia inválida")
    }
    
+   //Verifica que exista almenos un estado meta
+   private def VerificarExistenciaMeta() = {
+     if(EstadosM.isEmpty)
+     throw new Exception("Debes agregar al menos un estado meta")
+   }
+   
+   //Verifica que haya una matriz en el panel
+   private def VerificarMatrizNula() = {
+     if (EstadoS == null)
+     throw new Exception("Primero debes ingresar una matriz")
+   }
+   
    //Se verifica que el estado meta tenga inversa respecto al estado a solucionar
    private def VerificarExistenciaSolucion(Sec:List[Int]) = {
      val Est = new Estado(Sec)
@@ -94,7 +112,7 @@ object Application extends App{
        EstadosM = List()
        EstadoS = new Estado(Sec)
        PanelE.ColocarEstado(EstadoS)
-       Window.MostrarMensaje("Estado a solucionar cambiado a:\n " + EstadoS)
+       Window.MostrarMensaje("Estado a solucionar:\n " + EstadoS)
      } else throw new Exception("Secuencia inválida")
    }
    

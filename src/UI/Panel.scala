@@ -26,7 +26,6 @@ object PanelP extends JPanel {
   (CBHeuristica.getModel()).asInstanceOf[DefaultComboBoxModel[String]].addElement("Manhattan");
   (CBHeuristica.getModel()).asInstanceOf[DefaultComboBoxModel[String]].addElement("TilesOutOf");
   (CBHeuristica.getModel()).asInstanceOf[DefaultComboBoxModel[String]].addElement("MisplacedTiles");
-  (CBHeuristica.getModel()).asInstanceOf[DefaultComboBoxModel[String]].addElement("Falta");
   
   /**
    * Para obtener el estado inicial mediante un TextBox
@@ -34,7 +33,7 @@ object PanelP extends JPanel {
    * de colocar un nuevo estado a solucionar
    */
   val LEInicial = new JLabel("Estado inicial: "){setForeground(Color.WHITE)}
-  val TBEInicial = new JTextField("0 8 1 2 7 6 5 4 3")
+  val TBEInicial = new JTextField("1 0 2 3 4 5 6 7 8")
   val BTNInicial = new JButton("Ingresar")
   BTNInicial.addActionListener(new ActionListener(){
     def actionPerformed(e: ActionEvent){
