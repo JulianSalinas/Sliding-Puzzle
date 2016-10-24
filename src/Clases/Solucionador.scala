@@ -20,29 +20,23 @@ class Solucionador {
    * Retorna un estado al cual se le pueden obtener los padres para poder
    * recrear la secuencia de estados correspondientes a la solucion
    */
-  def BuscarUltimoEstado( estadoInicial : Estado, estadoMeta : Estado , heuristica: (Estado, Estado) => Int) : Estado = {   
-    var listaE : List[Estado] = List()
-    var estadoActual = estadoInicial
+  def BuscarUltimoEstado(
+      EstadoInicial : Estado, EstadoMeta : Estado , 
+      Heuristica: (Estado, Estado) => Int) : Estado = {   
     
-    while (!estadoActual.EqualsTo(estadoMeta)) {
-      var subEstados = estadoActual.GetSubEstados(listaE)
- 
-      /*Se selecciona el mejor estado por medio de la heuristica*/     
-      if (!subEstados.isEmpty){
-        estadoActual = subEstados.reduceLeft(
-          (E1,E2) => if ( heuristica(E1, estadoMeta) < heuristica(E2, estadoMeta) ) E1 else E2)
-        listaE = listaE ::: List(estadoActual)  
-      }
-      
-      /* Si el estado no tenia hijos validos entonces solo se agrega
-       * el estado como visitado y se devuelve a buscar en otros hijos del padre*/   
-      else {
-        listaE = listaE ::: List(estadoActual)
-        estadoActual = estadoActual.Estado_Anterior
-      } 
-      
+    var Visitados : List[Estado] = List()
+    var EstadoActual = EstadoInicial
+    
+    while (!EstadoActual.EqualsTo(EstadoMeta)) {
+      var PesoActual = Heuristica(EstadoActual,EstadoMeta)
+      var Subestados = EstadoActual.GetSubEstados(Visitados)
+      //.filter { X => Heuristica(X, EstadoMeta) < PesoActual }
+      if (!Subestados.isEmpty) EstadoActual = Subestados.reduceLeft((E1,E2) => 
+      if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)
+      else EstadoActual = EstadoActual.Estado_Anterior
+      Visitados = Visitados ::: List(EstadoActual)  
     }  
-    return estadoActual
+    return EstadoActual
   }
 
   /**
