@@ -12,12 +12,7 @@ object Application extends App{
    Window.setVisible(true)
    var EstadosM:List[Estado] = List()
    var EstadoS:Estado = null
-   
-   var MensajeInicial = "1. Ingresa una secuencia,\n"
-   MensajeInicial += "2. Ingresa los posibles estados meta\n"
-   MensajeInicial += "3. Selecciona la heurística a utilizar y presiona solucionar\n"
-   MensajeInicial += "Nota: Puedes usar cualquier separador para ingresar las secuencias"
-   Window.MostrarMensaje(MensajeInicial)
+
    
    /**
     * La UI llama a este metodo indicando por medio de un string la
@@ -70,7 +65,7 @@ object Application extends App{
          VerificarExistenciaSolucion(Sec)
        EstadosM = EstadosM:::List(Est)
        PanelP.AddEstadoMeta(Est)
-       Window.MostrarMensaje("Estado meta cargado correctamente")
+       //Window.MostrarMensaje("Estado meta cargado correctamente")
      } catch{case e: Exception => { Window.MostrarMensaje(e.getMessage) }} 
    }
    
@@ -114,11 +109,26 @@ object Application extends App{
    def SetEstadoSolucionar(StrSecuencia:String) = {
      val Sec = String2List(StrSecuencia)
      if(IsSecuenciaValida(Sec)){
-       EstadosM = List()
+       //EstadosM = List()
        EstadoS = new Estado(Sec)
        PanelE.ColocarEstado(EstadoS)
-       Window.MostrarMensaje("Estado a solucionar:\n " + EstadoS)
-     } else throw new Exception("Secuencia inválida")
+       //Window.MostrarMensaje("Estado a solucionar:\n " + EstadoS)
+     }
+     else if (!IsSecuenciaValida(Sec)){
+
+       Window.MostrarMensaje("Secuencia inválida")
+
+     }
+
+     else throw new Exception("Secuencia inválida")
+   }
+
+   def SetEstado(estado: Estado) = {
+
+     EstadoS = estado
+     PanelE.ColocarEstado(EstadoS)
+     //Window.MostrarMensaje("Presionado")
+
    }
    
    /**

@@ -37,9 +37,9 @@ object PanelP extends JPanel {
   val BTNInicial = new JButton("Ingresar")
   BTNInicial.addActionListener(new ActionListener(){
     def actionPerformed(e: ActionEvent){
-      ListEstMeta.setModel(new DefaultListModel[Estado])
+      //ListEstMeta.setModel(new DefaultListModel[Estado])
       ListSolucion.setModel(new DefaultListModel[Estado])
-      ListEstMeta.repaint()
+      //ListEstMeta.repaint()
       ListSolucion.repaint()
       Application.SetEstadoSolucionar(TBEInicial.getText())
     }})
@@ -158,20 +158,21 @@ object PanelA extends JPanel{
   setLayout(null)
   setOpaque(true)
   setBackground(new Color(0,0,0,144))
-  val label1 = new JLabel("TECNOLÓGICO DE COSTA RICA"){
+
+  val label1 = new JLabel("1. Ingresa una secuencia de inicio y otra meta para iniciar"){
     setForeground(Color.WHITE)
-    setFont(new Font("Jokerman", Font.PLAIN, 14))
+    setFont(new Font("Microsoft Segoe UI", Font.PLAIN, 14))
   }
-  val label2 = new JLabel("HECHO POR: "){
+  val label2 = new JLabel("2. Selecciona la heurística a utilizar y presiona solucionar"){
     setForeground(Color.WHITE)
-    setFont(new Font("Jokerman", Font.PLAIN, 12))
+    setFont(new Font("Microsoft Segoe UI", Font.PLAIN, 14))
   }
-  val label3 = new JLabel("JULIAN SALINAS, BRANDON DINARTE, OLMAN CASTILLO"){
+  val label3 = new JLabel("3. Puedes tocar las fichas para moverlas al estado vacío"){
     setForeground(Color.WHITE)
-    setFont(new Font("Jokerman", Font.PLAIN, 16))
+    setFont(new Font("Microsoft Segoe UI", Font.PLAIN, 14))
   }
-  label1.setBounds(15,15,300,25)
-  label2.setBounds(15,35,300,25)
+  label1.setBounds(15,15,500,25)
+  label2.setBounds(15,35,500,25)
   label3.setBounds(15,55,500,25)
   add(label1)
   add(label2)

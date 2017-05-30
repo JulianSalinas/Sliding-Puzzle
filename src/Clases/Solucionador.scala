@@ -31,7 +31,7 @@ class Solucionador {
       Visitados = Visitados ::: List(EstadoActual)  
       var Subestados = EstadoActual.GetSubEstados(Visitados)
       if (!Subestados.isEmpty) {EstadoActual = Subestados.reduceLeft((E1,E2) => 
-      if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)}
+        if ( Heuristica(E1, EstadoMeta) < Heuristica(E2, EstadoMeta) ) E1 else E2)}
       else {EstadoActual = EstadoActual.Estado_Anterior}
     }  
     return EstadoActual

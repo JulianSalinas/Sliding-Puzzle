@@ -109,7 +109,18 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
     val Estados_No_Existentes = EliminarEstadosInvalidos(Estados_No_Nulos, Existentes)
     return Estados_No_Existentes
   }
-  
+
+  def GetSubEstadosSinFiltro() : List[Estado] = {
+    val Neutro = GetPosicion(0)
+    val Est_Der = GetSubEstado(Neutro._1,Neutro._2+1)
+    val Est_Izq = GetSubEstado(Neutro._1,Neutro._2-1)
+    val Est_Arr = GetSubEstado(Neutro._1+1,Neutro._2)
+    val Est_Aba = GetSubEstado(Neutro._1-1,Neutro._2)
+    val Estados = List(Est_Der,Est_Izq,Est_Arr,Est_Aba)
+    val Estados_No_Nulos = EliminarNulos(Estados)
+    return Estados_No_Nulos
+  }
+
   /** 
    *  Obtiene un posible estado, para ello los parametros se debe basar
    *  en las coordenadas del elemento neutro.
@@ -141,7 +152,8 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
    */
   private def EliminarEstadosInvalidos(Lista : List[Estado], Existentes : List[Estado]): List[Estado] = {
     if(Lista == Nil) Lista
-    else if( !Existentes.exists { x => Lista.head.EqualsTo(x) }) List(Lista.head) ::: EliminarEstadosInvalidos(Lista.tail, Existentes)
+    else if( !Existentes.exists { x => Lista.head.EqualsTo(x) })
+      List(Lista.head) ::: EliminarEstadosInvalidos(Lista.tail, Existentes)
     else EliminarEstadosInvalidos(Lista.tail, Existentes)
   }
 
@@ -161,5 +173,19 @@ class Estado(_Secuencia : List[Int] , _Estado_Anterior: Estado = null ){
     return str.mkString("\n")*/
     return Secuencia.mkString("{", ",", "}")
   }
-  
+
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[Estado]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: Estado =>
+      (that canEqual this) &&
+        Secuencia == that.Secuencia
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(Secuencia)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }
